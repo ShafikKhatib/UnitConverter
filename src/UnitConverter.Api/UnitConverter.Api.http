@@ -1,0 +1,22 @@
+@host = http://localhost:5080
+
+### Convert meters to feet (POST)
+POST {{host}}/api/v1/conversions
+Content-Type: application/json
+
+{ "value": 100, "fromUnit": "meter", "toUnit": "foot" }
+
+### Celsius to Fahrenheit (GET)
+GET {{host}}/api/v1/conversions?value=100&from=C&to=F
+
+### Kilograms to pounds
+GET {{host}}/api/v1/conversions?value=70&from=kg&to=lb
+
+### Error: incompatible units
+GET {{host}}/api/v1/conversions?value=1&from=meter&to=kg
+
+### Categories
+GET {{host}}/api/v1/categories
+
+### Units in a category
+GET {{host}}/api/v1/units?category=temperature
