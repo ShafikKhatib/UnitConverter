@@ -11,6 +11,7 @@ public static class BuiltInUnits
     public const string Mass = "mass";
     public const string Temperature = "temperature";
     public const string Volume = "volume";
+    public const string Currency = "currency";
 
     private const double AbsoluteZeroCelsius = -273.15;
 
@@ -22,6 +23,7 @@ public static class BuiltInUnits
         new(Mass),
         new(Temperature, MinimumBaseValue: AbsoluteZeroCelsius),
         new(Volume),
+        new(Currency),
     ];
 
     private static readonly UnitDefinition[] Units =
@@ -57,6 +59,26 @@ public static class BuiltInUnits
         Scale(Volume, "pint", "pt", 0.473176473, "pints"),
         Scale(Volume, "quart", "qt", 0.946352946, "quarts"),
         Scale(Volume, "gallon", "gal", 3.785411784, "gallons", "us gallon"),
+
+        // Currency (base: US dollar)
+        //
+        // Rates are example static rates relative to USD.
+        // Replace these values with current rates before using this in production.
+        Scale(Currency, "us dollar", "USD", 1, "usd", "dollar", "dollars"),
+        Scale(Currency, "indian rupee", "INR", 0.0120, "inr", "rupee", "rupees"),
+        Scale(Currency, "euro", "EUR", 1.08, "eur", "euros"),
+        Scale(Currency, "british pound", "GBP", 1.27, "gbp", "pound sterling", "pounds sterling"),
+        Scale(Currency, "chinese yuan", "CNY", 0.138, "cny", "yuan", "renminbi"),
+        Scale(Currency, "japanese yen", "JPY", 0.0067, "jpy", "yen"),
+        Scale(Currency, "kuwaiti dinar", "KWD", 3.25, "kwd", "kuwaiti dinars"),
+        Scale(Currency, "bahraini dinar", "BHD", 2.65, "bhd", "bahraini dinars"),
+        Scale(Currency, "jordanian dinar", "JOD", 1.41, "jod", "jordanian dinars"),
+        Scale(Currency, "iraqi dinar", "IQD", 0.00076, "iqd", "iraqi dinars"),
+        Scale(Currency, "uae dirham", "AED", 0.2723, "aed", "dirham", "dirhams"),
+        Scale(Currency, "saudi riyal", "SAR", 0.2667, "sar", "riyal", "riyals"),
+        Scale(Currency, "canadian dollar", "CAD", 0.74, "cad", "canadian dollars"),
+        Scale(Currency, "australian dollar", "AUD", 0.66, "aud", "australian dollars"),
+        Scale(Currency, "swiss franc", "CHF", 1.12, "chf", "franc", "francs"),
     ];
 
     private static UnitDefinition Scale(string category, string name, string symbol, double factor, params string[] aliases) =>

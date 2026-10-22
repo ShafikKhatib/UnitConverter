@@ -102,4 +102,26 @@ public class ConversionServiceTests
     [Fact]
     public void Absolute_zero_itself_is_allowed() =>
         Assert.Equal(0, _sut.Convert(-273.15, "C", "K").Value, 6);
+
+    [Theory]
+    [InlineData(1000, "INR", "USD", 12)]
+    [InlineData(100, "USD", "EUR", 108)]
+    [InlineData(100, "EUR", "GBP", 85.0393700787)]
+    [InlineData(100, "USD", "CNY", 724.6376811594)]
+    [InlineData(1, "KWD", "USD", 3.25)]
+    public void Converts_currencies(double value, string from, string to, double expected)
+    {
+        var result = _sut.Convert(value, from, to, BuiltInUnits.Currency);
+
+        Assert.Equal(expected, result.Value, 6);
+    }
+
+    [Fact]
+    public void Rejects_currency_to_physical_unit_conversion()
+    {
+        var ex = Assert.Throws<ConversionException>(
+            () => _sut.Convert(100, "INR", "kg"));
+
+        Assert.Equal(ConversionError.IncompatibleUnits, ex.Code);
+    }
 }
